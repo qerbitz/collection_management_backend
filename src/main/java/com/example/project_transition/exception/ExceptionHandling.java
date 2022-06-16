@@ -110,6 +110,6 @@ public class ExceptionHandling implements ErrorController {
 
     //@Override
     //public String getErrorPath() {
-      //  return ERROR_PATH;
+     //   return ERROR_PATH;
     //}
 }

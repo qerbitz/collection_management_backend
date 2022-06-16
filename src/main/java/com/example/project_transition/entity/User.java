@@ -23,7 +23,7 @@ public class User implements Serializable {
     private String password;
     private String email;
 
-    private String role; //ROLE_USER{ read, edit }, ROLE_ADMIN {delete}
+    private String role;
     private String[] authorities;
     private boolean isActive;
     private boolean isNotLocked;
