@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.project_transition.enumeration.Role.*;
+
 @Service
 public class AdminServiceImpl implements AdminService {
 
@@ -33,6 +35,34 @@ public class AdminServiceImpl implements AdminService {
         for(int i=0; i<usersList.size(); i++){
             Optional<User> user = userRepository.findById(usersList.get(i));
             user.get().setNotLocked(true);
+            userRepository.save(user.get());
+        }
+    }
+
+    @Override
+    public void deleteUsers(List<Long> usersList) {
+        for(int i=0; i<usersList.size(); i++){
+            Optional<User> user = userRepository.findById(usersList.get(i));
+            userRepository.delete(user.get());
+        }
+    }
+
+    @Override
+    public void upgradeToAdmin(List<Long> usersList) {
+        for(int i=0; i<usersList.size(); i++){
+            Optional<User> user = userRepository.findById(usersList.get(i));
+            user.get().setRole(ROLE_ADMIN.name());
+            user.get().setAuthorities(ROLE_ADMIN.getAuthorities());
+            userRepository.save(user.get());
+        }
+    }
+
+    @Override
+    public void downgradeToUser(List<Long> usersList) {
+        for(int i=0; i<usersList.size(); i++){
+            Optional<User> user = userRepository.findById(usersList.get(i));
+            user.get().setRole(ROLE_USER.name());
+            user.get().setAuthorities(ROLE_USER.getAuthorities());
             userRepository.save(user.get());
         }
     }

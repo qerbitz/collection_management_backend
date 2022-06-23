@@ -11,5 +11,11 @@ public interface AdminService {
 
     void unlockUsers(List<Long> usersList);
 
+    void deleteUsers(List<Long> usersList);
+
+    void upgradeToAdmin(List<Long> usersList);
+
+    void downgradeToUser(List<Long> usersList);
+
     List<User> getAllUsers();
 }

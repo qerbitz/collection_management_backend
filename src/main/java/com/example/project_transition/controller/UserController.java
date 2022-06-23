@@ -7,6 +7,8 @@ import com.example.project_transition.service.interfac.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -18,10 +20,12 @@ import static org.springframework.http.HttpStatus.OK;
 public class UserController {
 
     private UserService userService;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AuthenticationManager authenticationManager) {
         this.userService = userService;
+        this.authenticationManager = authenticationManager;
     }
 
     @PostMapping("/register")
@@ -31,25 +35,16 @@ public class UserController {
         return new ResponseEntity<>(newUser, OK);
     }
 
-    @GetMapping("/test")
-    public ResponseEntity<String> test(){
-        System.out.println("testt");
-        return new ResponseEntity<>("test", OK);
+
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestBody User user) {
+        authenticate(user.getUsername(), user.getPassword());
+        User loggedUser = userService.findUserByUsername(user.getUsername());
+        return new ResponseEntity(loggedUser, OK);
     }
 
-    @GetMapping("/test2")
-    @PreAuthorize("hasAnyAuthority('user:read')")
-    public ResponseEntity<String> test2(){
-        System.out.println("testt2");
-        return new ResponseEntity<>("test2", OK);
+    private void authenticate(String username, String password) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,password));
     }
-
-    @GetMapping("/test3")
-    @PreAuthorize("hasAnyAuthority('user:write')")
-    public ResponseEntity<String> test3(){
-        System.out.println("testt2");
-        return new ResponseEntity<>("test2", OK);
-    }
-
 
 }

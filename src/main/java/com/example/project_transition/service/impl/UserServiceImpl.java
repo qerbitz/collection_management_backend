@@ -3,7 +3,6 @@ package com.example.project_transition.service.impl;
 import com.example.project_transition.entity.User;
 import com.example.project_transition.entity.UserPrincipal;
 import com.example.project_transition.exception.EmailExistException;
-import com.example.project_transition.exception.UserNotFoundException;
 import com.example.project_transition.exception.UsernameExistException;
 import com.example.project_transition.repository.UserRepository;
 import com.example.project_transition.service.interfac.UserService;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-import java.util.List;
 
 import static com.example.project_transition.constant.UserImplConstant.*;
 import static com.example.project_transition.enumeration.Role.*;
@@ -45,6 +43,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new UsernameNotFoundException(NO_USER_FOUND_BY_USERNAME + username);
         } else{
             validateLoginAttempt(user);
+            userRepository.save(user);
             UserPrincipal userPrincipal = new UserPrincipal(user);
             return userPrincipal;
         }

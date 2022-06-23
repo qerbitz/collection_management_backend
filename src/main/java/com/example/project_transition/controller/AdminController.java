@@ -5,6 +5,7 @@ import com.example.project_transition.entity.User;
 import com.example.project_transition.service.interfac.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @CrossOrigin
+@PreAuthorize("hasAuthority('admin')")
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -40,21 +42,21 @@ public class AdminController {
         return new ResponseEntity<>(OK);
     }
 
-    @DeleteMapping ("/deleteUsers")
-    public ResponseEntity<List<Long>> deleteUsers(){
-
+    @PostMapping("/deleteUsers")
+    public ResponseEntity<List<Long>> deleteUsers(@RequestBody List<Long> usersList){
+        adminService.deleteUsers(usersList);
         return new ResponseEntity<>(OK);
     }
 
-    @PostMapping("/upgradeToAdmin")
-    public ResponseEntity<List<Long>> upgradeToAdmin(){
-
+    @PutMapping("/upgradeToAdmin")
+    public ResponseEntity<List<Long>> upgradeToAdmin(@RequestBody List<Long> usersList){
+        adminService.upgradeToAdmin(usersList);
         return new ResponseEntity<>(OK);
     }
 
-    @PostMapping("/downgradeToUser")
-    public ResponseEntity<List<Long>> downgradeToUser(){
-
+    @PutMapping("/downgradeToUser")
+    public ResponseEntity<List<Long>> downgradeToUser(@RequestBody List<Long> usersList){
+        adminService.downgradeToUser(usersList);
         return new ResponseEntity<>(OK);
     }
 
