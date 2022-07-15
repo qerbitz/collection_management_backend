@@ -12,24 +12,28 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Collections {
+public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
-    private String image;
+    private Double price;
+    private String iconImage;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_category")
+    @OneToMany
+    @JoinColumn(name = "comment_id")
+    private List<Comment> comments;
+
+    @OneToMany
+    @JoinColumn(name = "image_id")
+    private List<Image> images;
+
+    @OneToOne(fetch = FetchType.LAZY)
     private Category category;
 
-   // @OneToMany(mappedBy = "collections")
-  //  private List<Element> elementList;
-
-    @NotNull
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user", nullable = false, updatable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user")
     private User user;
 }

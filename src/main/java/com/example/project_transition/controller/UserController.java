@@ -6,7 +6,6 @@ import com.example.project_transition.exception.UsernameExistException;
 import com.example.project_transition.service.interfac.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +33,6 @@ public class UserController {
         User newUser = userService.register(user.getUsername(), user.getPassword(), user.getEmail());
         return new ResponseEntity<>(newUser, OK);
     }
-
 
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user) {

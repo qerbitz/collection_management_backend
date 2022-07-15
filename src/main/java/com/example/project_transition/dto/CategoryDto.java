@@ -11,11 +11,13 @@ public class CategoryDto {
 
     private Long id;
     private String name;
+    private String image;
 
 
     public static final class CategoryDtoBuilder {
         private Long id;
         private String name;
+        private String image;
 
         private CategoryDtoBuilder() {
         }
@@ -34,10 +36,16 @@ public class CategoryDto {
             return this;
         }
 
+        public CategoryDtoBuilder withImage(String image) {
+            this.image = image;
+            return this;
+        }
+
         public CategoryDto build() {
             CategoryDto categoryDto = new CategoryDto();
             categoryDto.setId(id);
             categoryDto.setName(name);
+            categoryDto.setImage(image);
             return categoryDto;
         }
     }
