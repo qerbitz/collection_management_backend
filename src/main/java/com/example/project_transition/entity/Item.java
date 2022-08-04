@@ -1,11 +1,11 @@
 package com.example.project_transition.entity;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,16 +21,19 @@ public class Item {
     private String description;
     private Double price;
     private String iconImage;
+    private Date createDate;
+    private int visits;
+    private String technicalState;
 
-    @OneToMany
-    @JoinColumn(name = "comment_id")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id")
     private List<Comment> comments;
 
-    @OneToMany
-    @JoinColumn(name = "image_id")
+    @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @JoinColumn(name = "item_id")
     private List<Image> images;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private Category category;
 
     @OneToOne(fetch = FetchType.LAZY)

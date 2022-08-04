@@ -3,7 +3,7 @@ package com.example.project_transition.service.interfac;
 import com.example.project_transition.dto.ItemDto;
 import com.example.project_transition.entity.Category;
 import com.example.project_transition.entity.Item;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -13,11 +13,13 @@ public interface ItemService {
 
     List<Item> getItemsListByUser(String user);
 
-    void addNewItem(ItemDto itemDto) throws JsonProcessingException;
+    List<Item> getNewestItems();
+
+    void addNewItem(ItemDto itemDto);
 
     void deleteItem(Long item_id);
 
     Item getItemById(Long id);
 
-    List<Item> getItemsListByCategory(String category_name);
+    Page<Item> getItemsListByCategory(String category_name, int page, int sort_option, Double price_min, Double price_max, String technicalState);
 }

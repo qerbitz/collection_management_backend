@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -26,4 +27,8 @@ public class User implements Serializable {
     private String[] authorities;
     private boolean isActive;
     private boolean isNotLocked;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
 }
