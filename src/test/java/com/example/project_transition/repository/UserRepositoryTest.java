@@ -14,7 +14,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @DataJpaTest
 public class UserRepositoryTest {
 
-
+/*
     @Autowired
     private UserRepository userRepository;
 
@@ -75,6 +75,6 @@ public class UserRepositoryTest {
 
         // then
         assertThat(expected).isTrue();
-    }
+    }*/
 
 }

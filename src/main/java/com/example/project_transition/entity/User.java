@@ -1,34 +1,57 @@
 package com.example.project_transition.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
 public class User implements Serializable {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 65981149772133526L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "USER_ID")
     private Long id;
 
-    private String username;
-    private String password;
+    @Column(name = "PROVIDER_USER_ID")
+    private String providerUserId;
+
     private String email;
 
-    private String role;
-    private String[] authorities;
-    private boolean isActive;
+    @Column(name = "enabled", columnDefinition = "BIT", length = 1)
+    private boolean enabled;
+
     private boolean isNotLocked;
 
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "address_id")
-    private Address address;
+    //@Column(name = "DISPLAY_NAME")
+    private String username;
+
+    @Column(name = "created_date", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    protected Date createdDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    protected Date modifiedDate;
+
+    private String password;
+
+    private String provider;
+
+    // bi-directional many-to-many association to Role
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID") })
+    private Set<Role> roles;
 }

@@ -10,7 +10,41 @@ import java.util.stream.Collectors;
 import static java.util.Arrays.stream;
 
 public class UserPrincipal implements UserDetails {
-    private User user;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+  /*  private User user;
 
     public UserPrincipal(User user) {
         this.user = user;
@@ -49,5 +83,5 @@ public class UserPrincipal implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.user.isActive();
-    }
+    }*/
 }

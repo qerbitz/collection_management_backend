@@ -13,15 +13,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+//import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 
-import static com.example.project_transition.enumeration.Role.ROLE_ADMIN;
-import static com.example.project_transition.enumeration.Role.ROLE_USER;
+//import static com.example.project_transition.enumeration.Role.ROLE_ADMIN;
+//import static com.example.project_transition.enumeration.Role.ROLE_USER;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Transactional
 public class AdminControllerTest {
-
+/*
     @MockBean
     private AdminService adminService;
 
@@ -209,9 +209,9 @@ public class AdminControllerTest {
         user.setAuthorities(ROLE_USER.getAuthorities());
         userRepository.save(user);
         return user;
-    }
+    }*/
 
-    private String encodePassword(String password) {
-        return bCryptPasswordEncoder.encode(password);
-    }
+    //private String encodePassword(String password) {
+     //   return bCryptPasswordEncoder.encode(password);
+   // }
 }

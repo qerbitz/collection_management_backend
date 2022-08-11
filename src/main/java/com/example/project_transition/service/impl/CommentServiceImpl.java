@@ -42,7 +42,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setDate_posted(new Date());
         Optional<Item> itembyId = itemRepository.findById(commentDto.getItem_id());
         comment.setItem(itembyId.get());
-        comment.setUser(userRepository.findUserByUsername(authentication.getName()));
+       // comment.setUser(userRepository.findUserByUsername(authentication.getName()));
 
         commentRepository.save(comment);
     }

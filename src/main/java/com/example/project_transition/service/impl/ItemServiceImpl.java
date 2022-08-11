@@ -54,8 +54,10 @@ public class ItemServiceImpl implements ItemService {
         Category category = categoryRepository.findCategoryByName(category_name);
         Pageable pageable = handlePageResult(sort_option, page, page_size);
 
-        if(technicalState.equals("All")){
-            technicalState=null;
+        if(technicalState!=null){
+            if(technicalState.equals("All")){
+                technicalState=null;
+            }
         }
         return itemRepository.findAllByCategory(pageable, category, price_min, price_max, technicalState);
     }
@@ -99,7 +101,7 @@ public class ItemServiceImpl implements ItemService {
         item.setImages(imageList);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        item.setUser(userRepository.findUserByUsername(authentication.getName()));
+       // item.setUser(userRepository.findUserByUsername(authentication.getName()));
         itemRepository.save(item);
     }
 

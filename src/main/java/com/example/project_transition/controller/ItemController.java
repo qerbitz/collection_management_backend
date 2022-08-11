@@ -20,11 +20,11 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping("/item")
 public class ItemController {
 
-    private final ItemService itemService;
+    private ItemService itemService;
 
     @Autowired
-    public ItemController(ItemService collectionService) {
-        this.itemService = collectionService;
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
     }
 
     @GetMapping("/userItemsList")
@@ -45,7 +45,7 @@ public class ItemController {
     }
 
     @GetMapping("/newestItems")
-    public ResponseEntity<List<ItemDto>> addNewItem(){
+    public ResponseEntity<List<ItemDto>> newestItems(){
         List<Item> newestItems = itemService.getNewestItems();
         return new ResponseEntity<>(mapItemToItemReadDtoList(newestItems), OK);
     }
@@ -60,7 +60,6 @@ public class ItemController {
         itemService.addNewItem(itemDto);
         return new ResponseEntity<>(CREATED);
     }
-
 
     @DeleteMapping("/deleteItem")
     public ResponseEntity<List<Long>> deleteitem(@RequestParam("item_id") Long item_id){
